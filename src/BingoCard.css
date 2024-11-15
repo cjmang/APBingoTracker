@@ -1,0 +1,39 @@
+/* .MuiCard-root.bingo-completed {
+    background-color: var(--mui-palette-primary-main);
+    color: var(--mui-palette-primary-contrastText);
+
+} */
+
+.bingo .MuiCardContent-root {
+    padding: 0;
+}
+
+.bingo-completed .MuiCardContent-root {
+    padding: 0;
+    background-color: var(--mui-palette-success-main);
+    color: var(--mui-palette-primary-contrastText);
+}
+
+.bingo-player.highlight {
+    background-color: var(--mui-palette-secondary-main);
+}
+
+.bingo .bingo-player {
+    background-color: var(--mui-palette-primary-main);
+    color: var(--mui-palette-primary-contrastText);
+}
+
+/* .bingo-completed .bingo-location {
+    background-color: var(--mui-palette-primary-main);
+    color: var(--mui-palette-primary-contrastText);
+} */
+
+span.bingo-player {
+    font-size: 1rem;
+}
+
+/* @media screen and (min-width: 480px) {
+    .MuiCard-root.bingo-completed {
+        font-size: 1rem;
+    }
+} */
