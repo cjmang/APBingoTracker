@@ -14,7 +14,7 @@
     color: var(--mui-palette-primary-contrastText);
 }
 
-.bingo-player.highlight {
+.bingo .bingo-player.highlight {
     background-color: var(--mui-palette-secondary-main);
 }
 
