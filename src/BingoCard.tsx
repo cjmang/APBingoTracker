@@ -1,6 +1,5 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import "./BingoCard.css";
 import { SxProps, Theme } from '@mui/system';
 export interface BingoOpts {

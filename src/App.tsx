@@ -46,34 +46,54 @@ function App() {
   const [search, setSearch] = React.useState<string>("");
   const [itemsReceived, setItemsReceived] = React.useState<Item[]>([]);
   const [bingosCompleted, setBingosCompleted] = React.useState<number>(0);
+  const [itemSet, setItemSet] = React.useReducer<(a:Set<number>,b: Set<number>) => Set<number>, Set<number>>((state: Set<number>, action: Set<number>) => {
+    if(action != null) {
+      state.forEach(s => {action.add(s);});
+      return action;
+    }
+    return state;
+  },new Set<number>(), (arg: Set<number>) => arg);
   const bingosNeeded = React.useMemo(
     () => slotData?.requiredBingoCount || 1,
     [slotData]
   );
+
+  React.useEffect(() => {
+    const tempSet = new Set<number>();
+    if(!slotData)
+    {
+      return;
+    }
+    for (const item of itemsReceived) {
+      const name = item.name;
+      const row = (name.charCodeAt(0) - 65) * slotData.boardSize;
+      tempSet.add(row + Number.parseInt(name.slice(1)) - 1);
+    }
+    setItemSet(tempSet);
+  }, [itemsReceived, slotData])
+
   const boardSetup = React.useMemo(() => {
     if (slotData == null) {
       return [];
     }
-    const itemSet = new Set<string>();
-    for (const item of itemsReceived) {
-      itemSet.add(item.locationName);
-    }
     const result: BingoOpts[] = [];
+    let i = 0;
     for (const datum of slotData.boardLocations) {
       const matches = datum.match(boardLocationRE);
-      // console.log(matches);
       if (matches) {
         result.push({
           key: datum,
           location: matches[1],
           player: matches[2],
-          completed: itemSet.has(matches[1]),
+          completed: itemSet.has(i),
           highlight: !!search && matches[2].toLowerCase().includes(search),
         });
       }
+      i++;
     }
     return result;
-  }, [slotData, search, itemsReceived]);
+  }, [slotData, search, itemSet]);
+
   return (
     <div className="App">
       <ThemeProvider theme={darkTheme}>
@@ -107,8 +127,6 @@ function App() {
               slotDataCB={setSlotData}
               itemsReceived={setItemsReceived}
               bingosCompleted={(num: number, all: boolean) => {
-                console.log(num, all);
-                console.log(bingosCompleted);
                 setBingosCompleted(all ? num : num + bingosCompleted);
               }}
             />
