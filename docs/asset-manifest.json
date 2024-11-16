@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "https://cjmang.github.io/APBingoTracker/static/css/main.7f95ae89.css",
-    "main.js": "https://cjmang.github.io/APBingoTracker/static/js/main.3e4b643d.js",
+    "main.js": "https://cjmang.github.io/APBingoTracker/static/js/main.f59ee42e.js",
     "static/js/453.87e1cebf.chunk.js": "https://cjmang.github.io/APBingoTracker/static/js/453.87e1cebf.chunk.js",
     "index.html": "https://cjmang.github.io/APBingoTracker/index.html",
     "main.7f95ae89.css.map": "https://cjmang.github.io/APBingoTracker/static/css/main.7f95ae89.css.map",
-    "main.3e4b643d.js.map": "https://cjmang.github.io/APBingoTracker/static/js/main.3e4b643d.js.map",
+    "main.f59ee42e.js.map": "https://cjmang.github.io/APBingoTracker/static/js/main.f59ee42e.js.map",
     "453.87e1cebf.chunk.js.map": "https://cjmang.github.io/APBingoTracker/static/js/453.87e1cebf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7f95ae89.css",
-    "static/js/main.3e4b643d.js"
+    "static/js/main.f59ee42e.js"
   ]
 }
