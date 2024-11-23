@@ -62,7 +62,16 @@ function App() {
     return state;
   },new Set<number>(), (arg: Set<number>) => arg);
   const bingosNeeded = React.useMemo(
-    () => slotData?.requiredBingoCount || 1,
+    () => {
+      if(slotData == null) {
+        return 1;
+      }
+      const totalLocations = slotData.boardLocations.length;
+      const itemsPerBingo = totalLocations / (2 * slotData.boardSize + 2);
+      const result = slotData.requiredBingoCount * itemsPerBingo;
+      return result;
+      // slotData?.requiredBingoCount || 1
+    },
     [slotData]
   );
 
