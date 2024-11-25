@@ -53,7 +53,7 @@ function App() {
   const [slotData, setSlotData] = React.useState<BingoSlotData>();
   const [search, setSearch] = React.useState<string>("");
   const [itemsReceived, setItemsReceived] = React.useState<Item[]>([]);
-  const [bingosCompleted, setBingosCompleted] = React.useState<number>(0);
+  const [locationsChecked, setLocationsChecked] = React.useState<number>(0);
   const [itemSet, setItemSet] = React.useReducer<(a:Set<number>,b: Set<number>) => Set<number>, Set<number>>((state: Set<number>, action: Set<number>) => {
     if(action != null) {
       state.forEach(s => {action.add(s);});
@@ -61,7 +61,7 @@ function App() {
     }
     return state;
   },new Set<number>(), (arg: Set<number>) => arg);
-  const bingosNeeded = React.useMemo(
+  const locationsNeeded = React.useMemo(
     () => {
       if(slotData == null) {
         return 1;
@@ -70,7 +70,6 @@ function App() {
       const itemsPerBingo = totalLocations / (2 * slotData.boardSize + 2);
       const result = slotData.requiredBingoCount * itemsPerBingo;
       return result;
-      // slotData?.requiredBingoCount || 1
     },
     [slotData]
   );
@@ -127,7 +126,7 @@ function App() {
             <LinearProgress
               color="secondary"
               variant="determinate"
-              value={(bingosCompleted / bingosNeeded) * 100}
+              value={(locationsChecked / locationsNeeded) * 100}
             ></LinearProgress>
           </Box>
           <Box display="flex" sx={{m:1}} justifyContent="space-between">
@@ -143,8 +142,8 @@ function App() {
             <APLogin
               slotDataCB={setSlotData}
               itemsReceived={setItemsReceived}
-              bingosCompleted={(num: number, all: boolean) => {
-                setBingosCompleted(all ? num : num + bingosCompleted);
+              locationsChecked={(num: number, all: boolean) => {
+                setLocationsChecked(all ? num : num + locationsChecked);
               }}
             />
           </Box>

@@ -5,7 +5,7 @@ import { Client, Item } from "archipelago.js";
 export interface APLoginProps {
     slotDataCB: (data: BingoSlotData) => void;
     itemsReceived: (items: Item[]) => void;
-    bingosCompleted: (num: number, all: boolean) => void;
+    locationsChecked: (num: number, all: boolean) => void;
 }
 
 export interface BingoSlotData {
@@ -33,17 +33,9 @@ function APLogin(props: APLoginProps) {
         [disabled]
     );
     const client = new Client();
-    const toBingosCompleted = (checked: number[]) => {
-        for(let num of checked) {
-            console.log(client.package.lookupLocationName("APBingo", num));
-        }
-        return checked.map(n => client.package.lookupLocationName("APBingo", n))
-            .filter( s => s.startsWith("Bingo") && s.endsWith("0"))
-            .length;
-    };
     client.options.autoFetchDataPackage = true;
     client.items.on("itemsReceived", props.itemsReceived)
-    client.room.on("locationsChecked", e => props.bingosCompleted(toBingosCompleted(e), false));
+    client.room.on("locationsChecked", e => props.locationsChecked(e.length, false));
 
     client.messages.on("disconnected", () => {
         setLoggedIn(false);
@@ -81,7 +73,7 @@ function APLogin(props: APLoginProps) {
             setLoggedIn(false);
             setSnackMessage("Disconnected from the Archipelago Server");
             setSnackOpen(true);
-            props.bingosCompleted(0, true);
+            props.locationsChecked(0, true);
         }
     };
 
